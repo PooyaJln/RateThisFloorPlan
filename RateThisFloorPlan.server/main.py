@@ -1,6 +1,15 @@
-def main():
-    print("Hello from ratethisfloorplan!")
+from fastapi import FastAPI
+
+from routers import floor_plans, users
+
+app = FastAPI()
+app.title = "Rate this Floor Plan"
 
 
-if __name__ == "__main__":
-    main()
+app.include_router(users.router)
+app.include_router(floor_plans.router)
+
+
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
